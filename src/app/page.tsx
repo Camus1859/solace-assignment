@@ -100,39 +100,31 @@ export default function Home() {
       </div>
       <br />
       <br />
-      <table>
-        <thead>
-          <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>City</th>
-            <th>Degree</th>
-            <th>Specialties</th>
-            <th>Years of Experience</th>
-            <th>Phone Number</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          {visibleAdvocates.map((advocate, i) => {
-            return (
-              <tr key={`${advocate.firstName}-${advocate.lastName}`}>
-                <td>{advocate.firstName}</td>
-                <td>{advocate.lastName}</td>
-                <td>{advocate.city}</td>
-                <td>{advocate.degree}</td>
-                <td>
-                  {advocate.specialties.map((s, i) => (
-                    <div key={i}>{s}</div>
-                  ))}
-                </td>
-                <td>{advocate.yearsOfExperience}</td>
-                <td>{advocate.phoneNumber}</td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+          <thead className="bg-gray-100">
+            <tr>
+              <th className="px-3 py-2 text-left text-sm font-medium uppercase">
+                First Name
+              </th>
+              <th className="px-3 py-2 text-left text-sm font-medium uppercase">
+                Last Name
+              </th>
+              <th className="px-3 py-2 text-left text-sm font-medium uppercase">
+                City
+              </th>
+              <th className="px-3 py-2 text-left text-sm font-medium uppercase">
+                Degree
+              </th>
+              <th className="px-3 py-2 text-left text-sm font-medium uppercase">
+                Specialties
+              </th>
+              <th className="px-3 py-2 text-left text-sm font-medium uppercase">
+                Years of Experience
+              </th>
+              <th className="px-3 py-2 text-left text-sm font-medium uppercase">
+                Phone Number
+              </th>
+            </tr>
+          </thead>
     </main>
   );
 }
