@@ -1,45 +1,69 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 
 export default function Home() {
-  const [advocates, setAdvocates] = useState([]);
-  const [filteredAdvocates, setFilteredAdvocates] = useState([]);
+  interface Advocate {
+    id: string;
+    firstName: string;
+    lastName: string;
+    city: string;
+    degree: string;
+    specialties: string[];
+    yearsOfExperience: number;
+    phoneNumber: string;
+  }
+
+  const [advocates, setAdvocates] = useState<Advocate[]>([]);
+  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    console.log("fetching advocates...");
-    fetch("/api/advocates").then((response) => {
-      response.json().then((jsonResponse) => {
-        setAdvocates(jsonResponse.data);
-        setFilteredAdvocates(jsonResponse.data);
-      });
-    });
+    const getData = async () => {
+      try {
+        const res = await fetch("/api/advocates");
+        if (!res.ok) throw new Error(res.statusText);
+
+        const json = await res.json();
+        setAdvocates(json.data);
+      } catch (err) {
+        console.error(err);
+        setError("Unable to load advocates. Please try again.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    getData();
   }, []);
 
-  const onChange = (e) => {
-    const searchTerm = e.target.value;
+  const term = searchTerm.toLowerCase().trim();
 
-    document.getElementById("search-term").innerHTML = searchTerm;
+  const visibleAdvocates = advocates.filter((advocate) => {
+    if (!term) return true;
+    return (
+      advocate.firstName.toLowerCase().includes(term) ||
+      advocate.lastName.toLowerCase().includes(term) ||
+      advocate.city.toLowerCase().includes(term) ||
+      advocate.degree.toLowerCase().includes(term) ||
+      advocate.specialties.some((s) => s.toLowerCase().includes(term)) ||
+      advocate.yearsOfExperience.toString().includes(term)
+    );
+  });
 
-    console.log("filtering advocates...");
-    const filteredAdvocates = advocates.filter((advocate) => {
-      return (
-        advocate.firstName.includes(searchTerm) ||
-        advocate.lastName.includes(searchTerm) ||
-        advocate.city.includes(searchTerm) ||
-        advocate.degree.includes(searchTerm) ||
-        advocate.specialties.includes(searchTerm) ||
-        advocate.yearsOfExperience.includes(searchTerm)
-      );
-    });
+  const onChange = (e: ChangeEvent<HTMLInputElement>) =>
+    setSearchTerm(e.target.value);
 
-    setFilteredAdvocates(filteredAdvocates);
-  };
+  const onClick = () => setSearchTerm("");
 
-  const onClick = () => {
-    console.log(advocates);
-    setFilteredAdvocates(advocates);
-  };
+  if (loading) {
+    return <p>Loading advocates…</p>;
+  }
+
+  if (error) {
+    return <p className="text-red-300">{error}</p>;
+  }
 
   return (
     <main style={{ margin: "24px" }}>
@@ -49,34 +73,41 @@ export default function Home() {
       <div>
         <p>Search</p>
         <p>
-          Searching for: <span id="search-term"></span>
+          Searching for: <span>{searchTerm}</span>
         </p>
-        <input style={{ border: "1px solid black" }} onChange={onChange} />
+        <input
+          style={{ border: "1px solid black" }}
+          onChange={onChange}
+          value={searchTerm}
+        />
         <button onClick={onClick}>Reset Search</button>
       </div>
       <br />
       <br />
       <table>
         <thead>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>City</th>
-          <th>Degree</th>
-          <th>Specialties</th>
-          <th>Years of Experience</th>
-          <th>Phone Number</th>
+          <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>City</th>
+            <th>Degree</th>
+            <th>Specialties</th>
+            <th>Years of Experience</th>
+            <th>Phone Number</th>
+          </tr>
         </thead>
+
         <tbody>
-          {filteredAdvocates.map((advocate) => {
+          {visibleAdvocates.map((advocate, i) => {
             return (
-              <tr>
+              <tr key={`${advocate.firstName}-${advocate.lastName}`}>
                 <td>{advocate.firstName}</td>
                 <td>{advocate.lastName}</td>
                 <td>{advocate.city}</td>
                 <td>{advocate.degree}</td>
                 <td>
-                  {advocate.specialties.map((s) => (
-                    <div>{s}</div>
+                  {advocate.specialties.map((s, i) => (
+                    <div key={i}>{s}</div>
                   ))}
                 </td>
                 <td>{advocate.yearsOfExperience}</td>
