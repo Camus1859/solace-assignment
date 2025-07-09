@@ -71,21 +71,32 @@ export default function Home() {
   }
 
   return (
-    <main style={{ margin: "24px" }}>
-      <h1>Solace Advocates</h1>
+    <main className="mx-auto max-w-6xl px-4 py-10">
+      <h1 className="text-2xl font-semibold">Solace Advocates</h1>
       <br />
       <br />
-      <div>
-        <p>Search</p>
-        <p>
-          Searching for: <span>{searchTerm}</span>
-        </p>
-        <input
-          style={{ border: "1px solid black" }}
-          onChange={onChange}
-          value={searchTerm}
-        />
-        <button onClick={onClick}>Reset Search</button>
+      <div className="flex flex-col sm:flex-row sm:items-end gap-2 sm:gap-4">
+        <div className="flex flex-col">
+          <label className="text-sm font-medium" htmlFor="advocate-search">
+            Search advocates
+          </label>
+          <input
+            id="advocate-search"
+            className="border border-gray-400 rounded px-2 py-1"
+            value={searchTerm}
+            onChange={onChange}
+            placeholder="Type a name, city, etc."
+          />
+          <span className="text-xs text-gray-500 mt-1">
+            {searchTerm && <>Searching for “{searchTerm}”</>}
+          </span>
+        </div>
+        <button
+          onClick={onClick}
+          className="text-blue-600 underline text-sm"
+        >
+          Reset
+        </button>
       </div>
       <br />
       <br />
