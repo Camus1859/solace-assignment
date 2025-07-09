@@ -58,11 +58,16 @@ export default function Home() {
   const onClick = () => setSearchTerm("");
 
   if (loading) {
-    return <p>Loading advocates…</p>;
+    return (
+      <div className="flex justify-center py-10">
+        <span className="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-blue-600" />
+        <p className="ml-2">Loading advocates&hellip;</p>
+      </div>
+    );
   }
 
   if (error) {
-    return <p className="text-red-300">{error}</p>;
+    return <p className="text-center text-red-600 py-10">{error}</p>;
   }
 
   return (
