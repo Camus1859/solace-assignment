@@ -127,7 +127,42 @@ export default function Home() {
               </th>
             </tr>
           </thead>
+          <tbody>
+            {visibleAdvocates.length === 0 ? (
+              <p className="py-4 text-gray-600">
+                No advocates match “{searchTerm}”.
+              </p>
+            ) : (
+              visibleAdvocates.map((advocate) => (
+                <tr
+                  key={`${advocate.firstName}-${advocate.lastName}`}
+                  className="odd:bg-white even:bg-gray-70 hover:bg-blue-50"
+                >
+                  <td className="px-3 py-1">{advocate.firstName}</td>
+                  <td className="px-3 py-1">{advocate.lastName}</td>
+                  <td className="px-3 py-1">{advocate.city}</td>
+                  <td className="px-3 py-1">{advocate.degree}</td>
+                  <td className="px-3 py-1">
                     <div className="max-h-20 overflow-y-auto space-x-1">
+                      {advocate.specialties.map((s) => (
+                        <span
+                          key={s}
+                          className="bg-gray-200 text-gray-800 text-xs px-2  rounded mb-1"
+                        >
+                          {s}
+                        </span>
+                      ))}
+                    </div>
+                  </td>
+
+                  <td className="px-3 py-1">{advocate.yearsOfExperience}</td>
+                  <td className="px-3 py-1">{advocate.phoneNumber}</td>
+                </tr>
+              ))
+            )}
+          </tbody>
+        </table>
+      </div>
     </main>
   );
 }
