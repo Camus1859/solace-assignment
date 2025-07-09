@@ -3,6 +3,17 @@
 import { useEffect, useState } from "react";
 
 export default function Home() {
+  interface Advocate {
+    id: string;             
+    firstName: string;
+    lastName: string;
+    city: string;
+    degree: string;
+    specialties: string[];
+    yearsOfExperience: number;
+    phoneNumber: string;
+  }
+  const [advocates, setAdvocates] = useState<Advocate[]>([]);
   const [advocates, setAdvocates] = useState([]);
   const [filteredAdvocates, setFilteredAdvocates] = useState([]);
 
