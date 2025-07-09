@@ -100,6 +100,8 @@ export default function Home() {
       </div>
       <br />
       <br />
+      <div className="overflow-x-auto">
+        <table className="text-sm">
           <thead className="bg-gray-100">
             <tr>
               <th className="px-3 py-2 text-left text-sm font-medium uppercase">
@@ -125,6 +127,7 @@ export default function Home() {
               </th>
             </tr>
           </thead>
+                    <div className="max-h-20 overflow-y-auto space-x-1">
     </main>
   );
 }
