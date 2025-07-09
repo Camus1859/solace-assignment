@@ -15,8 +15,8 @@ export default function Home() {
   }
 
   const [advocates, setAdvocates] = useState<Advocate[]>([]);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [filteredAdvocates, setFilteredAdvocates] = useState([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const getData = async () => {
@@ -55,6 +55,14 @@ export default function Home() {
     setSearchTerm(e.target.value);
 
   const onClick = () => setSearchTerm("");
+
+  if (loading) {
+    return <p>Loading advocates…</p>;
+  }
+
+  if (error) {
+    return <p className="text-red-300">{error}</p>;
+  }
 
   return (
     <main style={{ margin: "24px" }}>
