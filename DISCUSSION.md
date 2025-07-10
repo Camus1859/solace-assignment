@@ -8,3 +8,5 @@ I spent around 4 hours on the assignment. If I had more time, I would:
 - Replace the basic `.includes` logic with fuzzy search using [fuse.js](https://www.npmjs.com/package/fuse.js) to support partial and misspelled queries
 - Add pagination (or infinite scroll) to improve frontend performance with large datasets
 - Improve accessibility by ensuring all table cells and filters are keyboard-navigable and follow ARIA best practices
+
+ I made a minor tweak to main after my PRs were merged to correct a minor Tailwind class typo (gray-70 => gray-50) affecting row striping.
