@@ -1,3 +1,10 @@
+
+## Link to PRs
+
+- [PR #1 – Bug Fixes & Code Cleanup](https://github.com/Camus1859/solace-assignment/pull/1)
+- [PR #2 – UI/UX Improvements](https://github.com/Camus1859/solace-assignment/pull/2)
+
+
 ## Solace Candidate Assignment
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
