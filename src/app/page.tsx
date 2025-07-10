@@ -136,7 +136,7 @@ export default function Home() {
               visibleAdvocates.map((advocate) => (
                 <tr
                   key={`${advocate.firstName}-${advocate.lastName}`}
-                  className="odd:bg-white even:bg-gray-70 hover:bg-blue-50"
+                  className="odd:bg-white even:bg-gray-50 hover:bg-blue-50"
                 >
                   <td className="px-3 py-1">{advocate.firstName}</td>
                   <td className="px-3 py-1">{advocate.lastName}</td>
